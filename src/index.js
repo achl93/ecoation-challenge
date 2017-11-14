@@ -1,5 +1,19 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './components/App';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-render(<App name='World' />, document.getElementById('root'));
+import Home from './components/App/Home';
+
+render(
+  <div>
+    <BrowserRouter>
+      <Switch>
+        <Route
+          component={Home}
+          path='/'
+        />
+      </Switch>
+    </BrowserRouter>
+  </div>
+  , document.getElementById('root')
+);

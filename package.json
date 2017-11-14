@@ -10,7 +10,7 @@
     "lint:watch": "esw -w src/**",
     "review": "npm run lint && npm test",
     "start": "npm run build && NODE_ENV=production node server.js",
-    "test":"jest src/**",
+    "test": "jest src/**",
     "test:watch": "jest src/** --watch",
     "test:watchAll": "jest src/** --watchAll",
     "test:coverage:report": "open coverage/lcov-report/index.html"
@@ -32,6 +32,7 @@
     "raf": "^3.3.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-router-dom": "^4.2.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "webpack": "^3.6.0"
