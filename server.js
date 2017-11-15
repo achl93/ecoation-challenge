@@ -9,6 +9,10 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/dist/index.html');
 });
 
+app.get('/app/current', function(request, response) {
+  response.json('0');
+});
+
 app.listen(PORT, error => (
   error
     ? console.error(error)
