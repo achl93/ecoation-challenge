@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { registerUser } from '../../actions/index';
+// import axios from 'axios';
 
 // import 'src/assets/stylesheets/base.scss';
 
-export default class Register extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,7 +15,7 @@ export default class Register extends Component {
     };
     this.handleEmail = this.handleEmail.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
-    this.handleLogin = this.handleRegister.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
   }
 
   handleEmail(e) {
@@ -26,10 +30,19 @@ export default class Register extends Component {
     e.preventDefault();
     const userObj = {
       email: this.state.email,
-      password: this.state.password
+      password: this.state.password,
+      integer: 0
     };
-    console.log(userObj);
-    // Save this to DB
+    this.props.registerUser(userObj);
+    this.props.history.push('/login');
+    // this.state.users.push(userObj);
+    // axios.post(this.props.route.url, userObj)
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 
   render() {
@@ -53,3 +66,15 @@ export default class Register extends Component {
     );
   }
 };
+
+function mapStateToProps(state) {
+  return {
+    users: state.users
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ registerUser }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

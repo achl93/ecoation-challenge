@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
 
 // import 'src/assets/stylesheets/base.scss';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,9 +27,16 @@ export default class Login extends Component {
 
   handleLogin(e) {
     e.preventDefault();
-    // Do an authentication and redirect if successful
-    // Redirect to main app for now
-    this.setState({ authenticated: true });
+    const users = this.props.users;
+    let matchingCredentials = 0;
+    for (let i = 1; i < users.length; i++) {
+      if (users[i].email === this.state.email && users[i].password === this.state.password) {
+        matchingCredentials++;
+      }
+    }
+    if (matchingCredentials === 1) {
+      this.setState({ authenticated: true });
+    }
   }
 
   render() {
@@ -59,3 +67,11 @@ export default class Login extends Component {
     }
   }
 };
+
+function mapStateToProps(state) {
+  return {
+    users: state.users
+  };
+}
+
+export default connect(mapStateToProps)(Login);

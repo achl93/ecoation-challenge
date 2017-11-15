@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import Current from './Current';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { incrementInteger } from '../../actions/index';
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -57,3 +60,15 @@ export default class App extends Component {
     );
   }
 };
+
+function mapStateToProps(state) {
+  return {
+    users: state.users
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ incrementInteger }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
