@@ -1,11 +1,9 @@
-import { REG_USER, INC_INT } from '../actions/index';
+import { CURR_USER } from '../actions/index';
 
-export default function(state = { email: 'admin@sample.com', password: 'admin', integer: 0 }, action) {
+export default function(state = {}, action) {
   switch (action.type) {
-    case REG_USER:
-      return [...state, action.payload];
-    case INC_INT:
-      return [...state, action.payload];
+    case CURR_USER:
+      return action.payload;
     default:
       return [action.payload];
   }

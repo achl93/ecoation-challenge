@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { registerUser } from '../../actions/index';
-// import axios from 'axios';
+import axios from 'axios';
+const querystring = require('querystring');
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import { registerUser } from '../../actions/index';
 
 // import 'src/assets/stylesheets/base.scss';
 
-class Register extends Component {
+export default class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,16 +34,16 @@ class Register extends Component {
       password: this.state.password,
       integer: 0
     };
-    this.props.registerUser(userObj);
-    this.props.history.push('/login');
+    // this.props.registerUser(userObj);
     // this.state.users.push(userObj);
-    // axios.post(this.props.route.url, userObj)
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    axios.post('http://localhost:8888/api/register', querystring.stringify(userObj))
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    this.props.history.push('/login');
   }
 
   render() {
@@ -67,14 +68,14 @@ class Register extends Component {
   }
 };
 
-function mapStateToProps(state) {
-  return {
-    users: state.users
-  };
-}
+// function mapStateToProps(state) {
+//   return {
+//     users: state.users
+//   };
+// }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ registerUser }, dispatch);
-}
+// function mapDispatchToProps(dispatch) {
+//   return bindActionCreators({ registerUser }, dispatch);
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+// export default connect(mapStateToProps, mapDispatchToProps)(Register);

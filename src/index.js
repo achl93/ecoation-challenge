@@ -26,12 +26,10 @@ ReactDOM.render(
           path='/app'
         />
         <Route
-          // url='http://localhost:8080/login'
           component={Login}
           path='/login'
         />
         <Route
-          // url='http://localhost:8080/register'
           component={Register}
           path='/register'
         />

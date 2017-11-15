@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
+import axios from 'axios';
+const querystring = require('querystring');
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { loginUser } from '../../actions/index';
 
 // import 'src/assets/stylesheets/base.scss';
 
@@ -27,16 +31,18 @@ class Login extends Component {
 
   handleLogin(e) {
     e.preventDefault();
-    const users = this.props.users;
-    let matchingCredentials = 0;
-    for (let i = 1; i < users.length; i++) {
-      if (users[i].email === this.state.email && users[i].password === this.state.password) {
-        matchingCredentials++;
-      }
-    }
-    if (matchingCredentials === 1) {
-      this.setState({ authenticated: true });
-    }
+    const userObj = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    axios.post('http://localhost:8888/api/login', querystring.stringify(userObj))
+      .then(res => {
+        this.setState({ authenticated: true });
+        this.props.loginUser(userObj);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -70,8 +76,12 @@ class Login extends Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.users
+    currentUser: state.currentUser
   };
 }
 
-export default connect(mapStateToProps)(Login);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ loginUser }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

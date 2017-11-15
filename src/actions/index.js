@@ -1,16 +1,8 @@
-export const REG_USER = 'REG_USER';
-export const INC_INT = 'INC_INT';
+export const CURR_USER = 'CURR_USER';
 
-export function registerUser(user) {
+export function loginUser(user) {
   return {
-    type: REG_USER,
-    payload: user
-  };
-};
-
-export function incrementInteger(user) {
-  return {
-    type: INC_INT,
+    type: CURR_USER,
     payload: user
   };
 };
