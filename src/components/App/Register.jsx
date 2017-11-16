@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 const querystring = require('querystring');
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import { registerUser } from '../../actions/index';
 
 // import 'src/assets/stylesheets/base.scss';
 
@@ -67,15 +64,3 @@ export default class Register extends Component {
     );
   }
 };
-
-// function mapStateToProps(state) {
-//   return {
-//     users: state.users
-//   };
-// }
-
-// function mapDispatchToProps(dispatch) {
-//   return bindActionCreators({ registerUser }, dispatch);
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Register);

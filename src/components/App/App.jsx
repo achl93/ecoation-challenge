@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 const querystring = require('querystring');
 import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import { incrementInteger } from '../../actions/index';
 
 class App extends Component {
   constructor(props) {
@@ -15,7 +13,7 @@ class App extends Component {
     this.handleCurrentInt = this.handleCurrentInt.bind(this);
     this.handleNextInt = this.handleNextInt.bind(this);
     this.handleNewInt = this.handleNewInt.bind(this);
-    this.editInt = this.editInt.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   handleCurrentInt(e) {
@@ -23,7 +21,7 @@ class App extends Component {
     axios.get(`http://localhost:8888/api/${this.props.currentUser.email}/current`)
       .then((res) => {
         console.log(res);
-        this.setState({ integer: res.data.integer });
+        this.setState({ integer: Number(res.data.integer) });
       })
       .catch((err) => {
         console.log(err);
@@ -32,6 +30,14 @@ class App extends Component {
 
   handleNextInt(e) {
     e.preventDefault();
+    axios.get(`http://localhost:8888/api/${this.props.currentUser.email}/next`)
+      .then((res) => {
+        console.log(res);
+        this.setState({ integer: Number(res.data.integer) });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   handleNewInt(e) {
@@ -40,13 +46,23 @@ class App extends Component {
     });
   }
 
-  editInt(e) {
+  handleEdit(e) {
     e.preventDefault();
-    this.setState({
-      integer: Number(this.state.newInteger),
-      newInt: ''
-    });
-    // update DB with current int
+    const updateObj = {
+      newInt: this.state.newInt,
+      email: this.props.currentUser.email
+    };
+    axios.post(`http://localhost:8888/api/${this.props.currentUser.email}/modify`, querystring.stringify(updateObj))
+      .then(res => {
+        console.log(res);
+        this.setState({
+          integer: Number(this.state.newInt),
+          newInt: ''
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
     document.getElementById('edit').reset();
   }
 
