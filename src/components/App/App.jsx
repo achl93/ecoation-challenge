@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 const querystring = require('querystring');
 import { connect } from 'react-redux';
+import { Button } from 'react-bootstrap';
 
 class App extends Component {
   constructor(props) {
@@ -68,22 +69,29 @@ class App extends Component {
 
   render() {
     return (
-      <div>
-        <div>Current Integer: {this.state.integer}</div>
-        <button onClick={this.handleCurrentInt}>Get Current</button>
-        <button onClick={this.handleNextInt}>+ Increment</button>
-        <div>Edit Integer</div>
-        <form 
-          id='edit'
-          onSubmit={this.handleEdit}
-        >
-          <input
-            onChange={this.handleNewInt}
-            placeholder='New Integer Value'
-            type='number'
-          />
-          <button type='submit'>Edit</button>
-        </form>
+      <div className='row w-25'>
+        <div className='col-md-12 col-sm-12 text-center mx-auto'>
+          <div className='row'>
+            <h1>Incrementing Integers As A Service</h1>
+          </div>
+          <div className='row'>
+            <div>Current Integer: {this.state.integer}</div>
+            <Button bsStyle="primary" bsSize="small" onClick={this.handleCurrentInt}>Get Current</Button>
+            <Button bsStyle="primary" bsSize="small" onClick={this.handleNextInt}>+ Increment</Button>
+            <div>Edit Integer</div>
+            <form 
+              id='edit'
+              onSubmit={this.handleEdit}
+            >
+              <input
+                onChange={this.handleNewInt}
+                placeholder='New Integer Value'
+                type='number'
+              />
+              <Button bsStyle="primary" type='submit'>Edit</Button>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }

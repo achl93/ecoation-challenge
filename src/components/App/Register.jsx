@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 const querystring = require('querystring');
-
-// import 'src/assets/stylesheets/base.scss';
 
 export default class Register extends Component {
   constructor(props) {
@@ -45,21 +44,28 @@ export default class Register extends Component {
 
   render() {
     return (
-      <div>
-        <h2>Register</h2>
-        <form onSubmit={this.handleRegister}>
-          <input
-            onChange={this.handleEmail} 
-            placeholder='Email' 
-            type='email'
-          />
-          <input 
-            onChange={this.handlePassword}
-            placeholder='Password' 
-            type='password'
-          />
-          <button type='submit'>Register</button>
-        </form>
+      <div className='row w-25'>
+        <div className='col-md-12 col-sm-12 text-center mx-auto'>
+          <div className='row'>
+            <h1>Incrementing Integers As A Service</h1>
+          </div>
+          <div className='row'>
+            <h2>Register</h2>
+            <form onSubmit={this.handleRegister}>
+              <input
+                onChange={this.handleEmail} 
+                placeholder='Email' 
+                type='email'
+              />
+              <input 
+                onChange={this.handlePassword}
+                placeholder='Password' 
+                type='password'
+              />
+              <Button bsStyle='primary' type='submit'>Register</Button>
+            </form>
+          </div>
+        </div>
       </div>
     );
   }

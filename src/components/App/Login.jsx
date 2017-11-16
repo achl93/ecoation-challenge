@@ -5,8 +5,7 @@ const querystring = require('querystring');
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { loginUser } from '../../actions/index';
-
-// import 'src/assets/stylesheets/base.scss';
+import { Button } from 'react-bootstrap';
 
 class Login extends Component {
   constructor(props) {
@@ -49,21 +48,28 @@ class Login extends Component {
     const { authenticated } = this.state;
     if (!authenticated) {
       return (
-        <div>
-          <h2>Login</h2>
-          <form onSubmit={this.handleLogin}>
-            <input
-              onChange={this.handleEmail} 
-              placeholder='Email' 
-              type='email'
-            />
-            <input 
-              onChange={this.handlePassword}
-              placeholder='Password' 
-              type='password'
-            />
-            <button type='submit'>Login</button>
-          </form>
+        <div className='row w-25'>
+          <div className='col-md-12 col-sm-12 text-center mx-auto'>
+            <div className='row'>
+              <h1>Incrementing Integers As A Service</h1>
+            </div>
+            <div className='row'>
+              <h2>Login</h2>
+              <form onSubmit={this.handleLogin}>
+                <input
+                  onChange={this.handleEmail} 
+                  placeholder='Email' 
+                  type='email'
+                />
+                <input 
+                  onChange={this.handlePassword}
+                  placeholder='Password' 
+                  type='password'
+                />
+                <Button bsStyle='primary' type='submit'>Login</Button>
+              </form>
+            </div>
+          </div>
         </div>
       );
     } else {
