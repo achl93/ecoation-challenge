@@ -1,48 +1,60 @@
 import React, { Component } from 'react';
-import Current from './Current';
+import axios from 'axios';
+const querystring = require('querystring');
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { incrementInteger } from '../../actions/index';
+// import { bindActionCreators } from 'redux';
+// import { incrementInteger } from '../../actions/index';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      integer: 0,
-      newInteger: null
+      integer: '',
+      newInt: ''
     };
+    this.handleCurrentInt = this.handleCurrentInt.bind(this);
     this.handleNextInt = this.handleNextInt.bind(this);
     this.handleNewInt = this.handleNewInt.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
+    this.editInt = this.editInt.bind(this);
   }
 
-  handleNextInt() {
-    let curr = this.state.integer;
-    this.setState({
-      integer: curr + 1
-    });
+  handleCurrentInt(e) {
+    e.preventDefault();
+    axios.get(`http://localhost:8888/api/${this.props.currentUser.email}/current`)
+      .then((res) => {
+        console.log(res);
+        this.setState({ integer: res.data.integer });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  handleNextInt(e) {
+    e.preventDefault();
   }
 
   handleNewInt(e) {
     this.setState({
-      newInteger: e.target.value
+      newInt: Number(e.target.value)
     });
   }
 
-  handleEdit(e) {
+  editInt(e) {
     e.preventDefault();
     this.setState({
       integer: Number(this.state.newInteger),
-      newInteger: null
+      newInt: ''
     });
+    // update DB with current int
     document.getElementById('edit').reset();
   }
 
   render() {
     return (
       <div>
-        <div>Current Integer</div>
-        <Current integer={this.state.integer} />
+        <div>Current Integer: {this.state.integer}</div>
+        <button onClick={this.handleCurrentInt}>Get Current</button>
         <button onClick={this.handleNextInt}>+ Increment</button>
         <div>Edit Integer</div>
         <form 
@@ -63,12 +75,8 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    users: state.users
+    currentUser: state.currentUser
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ incrementInteger }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
